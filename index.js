@@ -48,7 +48,7 @@ app.post("/", async (req, res) => {
     Date.now() - weatherCache[cacheKey].timestamp < CACHE_TTL
   ) {
     lastWeatherResult = weatherCache[cacheKey].data;
-    return res.redirect("/");
+    return res.redirect("/?show=1");
   }
 
   try {
@@ -82,15 +82,24 @@ app.post("/", async (req, res) => {
       temps.push(f.main.temp);
 
       if (["Fog", "Mist"].includes(f.weather[0].main)) {
-        alerts.push("🌫 Fog Alert: Low visibility expected");
+        alerts.push({
+          type: "fog",
+          message: "🌫 Fog Alert: Low visibility expected",
+        });
       }
 
       if (f.weather[0].main === "Rain" || f.pop >= 0.4) {
-        alerts.push("🌧 Rain Risk: Possible rainfall");
+        alerts.push({
+          type: "rain",
+          message: "🌧 Rain Risk: Possible rainfall",
+        });
       }
 
       if (f.main.temp >= 35) {
-        alerts.push("🔥 Heat Warning: High temperature");
+        alerts.push({
+          type: "heat",
+          message: "🔥 Heat Warning: High temperature",
+        });
       }
     });
 

@@ -25,14 +25,16 @@
         <div style="margin-top: 15px;">
             <label style="color:white;">Recent searches:</label>
 
-            <select onchange="handleHistorySelect(this.value)">
+            <select id="historySelect" onchange="handleHistorySelect(this.value)">
                 <option value="">Select</option>
                 <% history.forEach(h => { %>
                     <option value="<%= h.city %>|<%= h.day %>">
-                        <%= h.city %> (<%= h.day %>)
+                    <%= h.city %> (<%= h.day %>)
                     </option>
                 <% }) %>
-            </select>
+                </select>
+
+
         </div>
     <% } %>
 
@@ -65,31 +67,23 @@
     <% } %>
 
     </div>
-<script>
-  function handleHistorySelect(value) {
+
+    <script>
+    function handleHistorySelect(value) {
+    console.log("History clicked:", value); // DEBUG
+
     if (!value) return;
 
     const [city, day] = value.split("|");
 
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "/";
+    document.querySelector('input[name="city"]').value = city;
+    document.querySelector('select[name="day"]').value = day;
 
-    const cityInput = document.createElement("input");
-    cityInput.type = "hidden";
-    cityInput.name = "city";
-    cityInput.value = city;
+    // Reset dropdown so it can be used again
+    document.getElementById("historySelect").value = "";
 
-    const dayInput = document.createElement("input");
-    dayInput.type = "hidden";
-    dayInput.name = "day";
-    dayInput.value = day;
-
-    form.appendChild(cityInput);
-    form.appendChild(dayInput);
-
-    document.body.appendChild(form);
-    form.submit();
+    // Submit the SAME form
+    document.querySelector(".weather-form").submit();
   }
 </script>
 
