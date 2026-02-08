@@ -1,0 +1,60 @@
+body {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+}
+
+.container {
+  max-width: 500px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.weather-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.weather-form input,
+.weather-form select,
+.weather-form button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.weather-form button {
+  background: #ff9800;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.weather-card {
+  background: #ffffff;
+  color: #000;
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.alerts {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.alerts li {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.safe {
+  color: green;
+  font-weight: bold;
+}
+
+.alert.rain { color: #1565c0; }
+.alert.heat { color: #d32f2f; }
+.alert.fog  { color: #6a1b9a; }

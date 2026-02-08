@@ -1,0 +1,18 @@
+{
+  "name": "weather-alert",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Ragul Kumar A",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.13.4",
+    "dotenv": "^17.2.4",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1"
+  }
+}

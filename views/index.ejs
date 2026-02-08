@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Alert</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+
+    <div class="container">
+    <h1>🌦 Weather Alert System</h1>
+
+    <form action="/" method="POST" class="weather-form">
+      <input type="text" name="city" placeholder="Enter city" required>
+
+      <select name="day">
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+      </select>
+
+      <button type="submit">Check Alerts</button>
+    </form>
+    <% if (history && history.length > 0) { %>
+        <div style="margin-top: 15px;">
+            <label style="color:white;">Recent searches:</label>
+
+            <select onchange="handleHistorySelect(this.value)">
+                <option value="">Select</option>
+                <% history.forEach(h => { %>
+                    <option value="<%= h.city %>|<%= h.day %>">
+                        <%= h.city %> (<%= h.day %>)
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+    <% } %>
+
+    <% if (error) { %>
+        <p style="color: yellow; margin-top: 20px;">
+            ⚠ <%= error %>
+        </p>
+    <% } %>
+
+    <% if (weather) { %>
+      <div class="weather-card">
+        <h2><%= weather.city %> — <%= weather.dayLabel %></h2>
+        <p>🌡 Avg Temp: <%= weather.temp %> °C</p>
+
+        <% if (weather.alerts.length > 0) { %>
+          <div class="alerts">
+            <h3>⚠ Alerts</h3>
+            <ul>
+                <% weather.alerts.forEach(a => { %>
+                    <li class="alert <%= a.type %>"><%= a.message %></li>
+                <% }) %>
+            </ul>
+
+          </div>
+        <% } else { %>
+          <p class="safe">✅ No alerts expected</p>
+        <% } %>
+      </div>
+
+    <% } %>
+
+    </div>
+<script>
+  function handleHistorySelect(value) {
+    if (!value) return;
+
+    const [city, day] = value.split("|");
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/";
+
+    const cityInput = document.createElement("input");
+    cityInput.type = "hidden";
+    cityInput.name = "city";
+    cityInput.value = city;
+
+    const dayInput = document.createElement("input");
+    dayInput.type = "hidden";
+    dayInput.name = "day";
+    dayInput.value = day;
+
+    form.appendChild(cityInput);
+    form.appendChild(dayInput);
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+</script>
+
+</body>
+</html>
